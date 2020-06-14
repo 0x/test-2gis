@@ -24,10 +24,12 @@ namespace functions
 
 	uint32_t countChecksum(std::ifstream &file)
 	{
-		uint32_t check_sum{ 0L };
-		unsigned int shift{ 0 };
+		uint32_t check_sum = 0;
+		unsigned int shift = 0;
 		for (auto word = file.get(); file; word = file.get())
 		{
+			// Calculate as little-endian
+			// Returns in the native representation of the machine
 			check_sum += (word << shift);
 			shift += 8;
 			if (shift == 32)

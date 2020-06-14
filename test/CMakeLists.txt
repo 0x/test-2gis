@@ -9,7 +9,13 @@ target_link_libraries(test2gis_test PUBLIC
 	core
 )
 
-file(COPY test_0b.txt
-DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(COPY 
+	test_empty.txt 
+	test_0words.txt
+	test_5words.txt
+	test_abcd.txt
+	test_abcde.txt
+	DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
+)
 
-add_test(NAME test_test COMMAND test_test)
+add_test(NAME test2gis_test COMMAND test2gis_test)
