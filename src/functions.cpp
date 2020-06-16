@@ -38,14 +38,9 @@ std::size_t countWord(std::ifstream& file, const std::string& word)
 			}
 			
 			// Change the iteratror to an iterator after the punctuation character
-			if (iter_punct != str.end() && std::next(iter_punct) != str.end())
-			{
-				iter = std::next(iter_punct);
-			}
-			else
-			{
-				iter = str.end();
-			}
+			iter = (iter_punct != str.end() && std::next(iter_punct) != str.end())
+			? std::next(iter_punct)
+			: str.end();
 		}
 		return count + local_count;
 	});
@@ -53,7 +48,7 @@ std::size_t countWord(std::ifstream& file, const std::string& word)
 
 std::uint32_t countChecksum(std::ifstream& file)
 {
-	std::uint32_t check_sum = 0;
+	std::uint32_t check_sum = 0ull;
 	auto shift = 0u;
 	for (auto word = file.get(); file; word = file.get())
 	{

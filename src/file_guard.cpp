@@ -21,6 +21,10 @@ FileGuard::FileGuard(const std::string & filename)
 	
 std::ifstream& FileGuard::getIfstream()
 {
+	if (!file.is_open())
+	{
+		throw std::runtime_error("File if not open");
+	}
 	return file;
 }
 	

@@ -82,7 +82,7 @@ TEST(Test2gis, CountChecksum0bit)
 {
 	std::ifstream file( "test_empty.txt", std::ios::binary | std::ios::ate);
 	
-	ASSERT_EQ(file.tellg(),0);
+	ASSERT_EQ(file.tellg(), 0);
 	file.close();
 	
 	testtask::FileGuard file_empty("test_empty.txt");

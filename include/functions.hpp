@@ -13,6 +13,6 @@
 
 namespace testtask
 {
-	std::size_t countWord(std::ifstream &file, const std::string &word);
-	std::uint32_t countChecksum(std::ifstream &file);
+	[[nodiscard]] std::size_t countWord(std::ifstream &file, const std::string &word);
+	[[nodiscard]] std::uint32_t countChecksum(std::ifstream &file);
 }  // namespace functions

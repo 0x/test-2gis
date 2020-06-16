@@ -36,16 +36,15 @@ int main(int argc, const char * argv[])
 		}
 		const auto& filename = parser.getOption("-f");
 		const auto&  mode = parser.getOption("-m");
+		testtask::FileGuard file(filename);
+		
 		if (mode == "checksum")
 		{
-			testtask::FileGuard file(filename);
-			
 			std::cout << "Checksum: " << testtask::countChecksum(file.getIfstream()) << std::endl;
 		}
 		if (mode == "word")
 		{
 			const auto& word = parser.getOption("-v");
-			testtask::FileGuard file(filename);
 			
 			std::cout << "Number of words " <<  word << ": "
 			<< testtask::countWord(file.getIfstream(), word) << std::endl;

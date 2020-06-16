@@ -15,12 +15,14 @@ namespace testtask {
 class FileGuard
 {
 public:
-	FileGuard(const std::string & filename);
+	explicit FileGuard(const std::string & filename);
 	std::ifstream& getIfstream();
 	
 	FileGuard(const FileGuard&) = delete;
 	FileGuard& operator=(const FileGuard&) = delete;
-    
+	FileGuard(FileGuard&&) = delete;
+	FileGuard& operator=(FileGuard&&) = delete;
+	
 	~FileGuard();
 	
 private:
