@@ -6,6 +6,8 @@
 //  Copyright © 2020 Vitaly Koynov. All rights reserved.
 //
 
+#pragma once
+
 #include <string>
 #include <fstream>
 
