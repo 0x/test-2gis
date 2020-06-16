@@ -1,6 +1,6 @@
 //
 //  arg_parser.cpp
-//  test
+//  test2gis
 //
 //  Created by Vitaly Koynov on 6/12/20.
 //  Copyright © 2020 Vitaly Koynov. All rights reserved.
@@ -9,15 +9,13 @@
 #include "arg_parser.hpp"
 #include <stdexcept>
 
+namespace testtask{
 ArgParser::ArgParser(int argc, const char* argv[])
 {
-	for (auto it = 0; it < argc; it++)
-	{
-		tokens.push_back(argv[it]);
-	}
+	std::copy(argv, argv + argc, std::back_inserter(tokens));
 }
 
-const std::string &ArgParser::getOption(std::string option_name) const
+const std::string& ArgParser::getOption(const std::string& option_name) const
 {
 	auto it = std::find(tokens.begin(), tokens.end(), option_name);
 	if (it != tokens.end() && std::next(it) != tokens.end())
@@ -26,19 +24,13 @@ const std::string &ArgParser::getOption(std::string option_name) const
 	}
 	else
 	{
-		throw std::runtime_error("Could not find arguments");
+		throw std::runtime_error("Could not find option for " + option_name);
 	}
 }
 
-bool ArgParser::checkOption(std::string option_name) const
+bool ArgParser::checkOption(const std::string& option_name) const
 {
 	auto it = std::find(tokens.begin(), tokens.end(), option_name);
-	if (it != tokens.end())
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return it != tokens.end();
 }
+}  // namespace tasktask

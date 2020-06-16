@@ -1,6 +1,6 @@
 //
 //  functions.hpp
-//  test
+//  test2gis
 //
 //  Created by Vitaly Koynov on 6/12/20.
 //  Copyright © 2020 Vitaly Koynov. All rights reserved.
@@ -11,9 +11,8 @@
 #include <string>
 #include <fstream>
 
-namespace functions
+namespace testtask
 {
-	size_t countWord(std::ifstream &file, const std::string &word);
-	uint32_t countChecksum(std::ifstream &file);
+	std::size_t countWord(std::ifstream &file, const std::string &word);
+	std::uint32_t countChecksum(std::ifstream &file);
 }  // namespace functions
-

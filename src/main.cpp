@@ -1,17 +1,18 @@
 //
 //  main.cpp
-//  test
+//  test2gis
 //
 //  Created by Vitaly Koynov on 6/12/20.
 //  Copyright © 2020 Vitaly Koynov. All rights reserved.
 //
+
 #include "arg_parser.hpp"
 #include "functions.hpp"
+#include "file_guard.hpp"
 #include <iostream>
-#include <fstream>
 
-namespace functions{
-void help()
+namespace testtask{
+auto help()
 {
 	std::cout << "Usage: " << " [options]\n"
 	<< "Options:\n"
@@ -26,45 +27,33 @@ int main(int argc, const char * argv[])
 {
 	try
 	{
-		ArgParser parser(argc, argv);
+		testtask::ArgParser parser(argc, argv);
 		
 		if (parser.checkOption("-h"))
 		{
-			functions::help();
+			testtask::help();
 			return 0;
 		}
-		std::string filename = parser.getOption("-f");
-		std::string mode = parser.getOption("-m");
+		const auto& filename = parser.getOption("-f");
+		const auto&  mode = parser.getOption("-m");
 		if (mode == "checksum")
 		{
-			std::ifstream file(filename);
-			if (file.fail())
-			{
-				throw std::runtime_error("Could not open file");
-			}
+			testtask::FileGuard file(filename);
 			
-			std::cout << "Checksum: " << functions::countChecksum(file) << std::endl;
-			
-			file.close();
+			std::cout << "Checksum: " << testtask::countChecksum(file.getIfstream()) << std::endl;
 		}
 		if (mode == "word")
 		{
-			std::string word = parser.getOption("-v");
-			std::ifstream file(filename);
-			if (file.fail())
-			{
-				throw std::runtime_error("Could not open file");
-			}
+			const auto& word = parser.getOption("-v");
+			testtask::FileGuard file(filename);
 			
 			std::cout << "Number of words " <<  word << ": "
-			<< functions::countWord(file, word) << std::endl;
-			
-			file.close();
+			<< testtask::countWord(file.getIfstream(), word) << std::endl;
 		}
 	} catch (const std::exception &exception)
 	{
 		std::cerr << "Error: " << exception.what() << std::endl;
-		functions::help();
+		testtask::help();
 	}
 	return 0;
 }
