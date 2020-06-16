@@ -47,32 +47,34 @@ TEST(Test2gis, GetArgument)
 TEST(Test2gis, GetArgumentEmptyArg)
 {
 	{
-		//create_parser(1, "test");
-	int argc = 1;
-	const char *argv[] = {"test"};
-	testtask::ArgParser parser(argc, argv);
+		int argc = 1;
+		const char *argv[] = {"test"};
+		testtask::ArgParser parser(argc, argv);
 	
-	EXPECT_ANY_THROW(parser.getOption("-f"));
+		ASSERT_FALSE(parser.checkOption("-f"));
+		
+		EXPECT_ANY_THROW(parser.getOption("-f"));
 	}
-	{
-	int argc1 = 5;
-	const char *argv1[] = {"test", "-f", "file.txt", "-m", "word"};
-		testtask::ArgParser parser(argc1, argv1);
 	
-	EXPECT_ANY_THROW(parser.getOption("-v"));
+	// With another options
+	{
+		int argc = 5;
+		const char *argv[] = {"test", "-f", "file.txt", "-m", "word"};
+		testtask::ArgParser parser(argc, argv);
+		
+		ASSERT_FALSE(parser.checkOption("-v"));
+		
+		EXPECT_ANY_THROW(parser.getOption("-v"));
 	}
 }
 
 TEST(Test2gis, OpenExistingFile)
 {
-	testtask::FileGuard file("test_empty.txt");
-	
-	//EXPECT_NO_THROW();
+	EXPECT_NO_THROW(testtask::FileGuard("test_empty.txt"));
 }
 
 TEST(Test2gis, OpenNonExistingFile)
 {
-	
 	EXPECT_ANY_THROW(testtask::FileGuard("test_non_exist.txt"));
 }
 
@@ -124,4 +126,10 @@ TEST(Test2gis, CountWords5Words)
 	EXPECT_EQ(testtask::countWord(file.getIfstream(),"test"), 5);
 }
 
+TEST(Test2gis, CountWords10WordsWithPunct)
+{
+	testtask::FileGuard file("test_10words_punct.txt");
+	
+	EXPECT_EQ(testtask::countWord(file.getIfstream(),"test"), 10);
+}
 

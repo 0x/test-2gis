@@ -11,6 +11,7 @@ file(COPY
 	test_5words.txt
 	test_abcd.txt
 	test_abcde.txt
+	test_10words_punct.txt
 	DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
 )
 
